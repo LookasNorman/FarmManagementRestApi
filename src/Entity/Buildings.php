@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\BuildingsRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -34,6 +36,16 @@ class Buildings
      * @ORM\Column(type="integer", nullable=true)
      */
     private $area;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Tank::class, mappedBy="building")
+     */
+    private $tanks;
+
+    public function __construct()
+    {
+        $this->tanks = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -72,6 +84,33 @@ class Buildings
     public function setArea(?int $area): self
     {
         $this->area = $area;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Tank[]
+     */
+    public function getTanks(): Collection
+    {
+        return $this->tanks;
+    }
+
+    public function addTank(Tank $tank): self
+    {
+        if (!$this->tanks->contains($tank)) {
+            $this->tanks[] = $tank;
+            $tank->addBuilding($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTank(Tank $tank): self
+    {
+        if ($this->tanks->removeElement($tank)) {
+            $tank->removeBuilding($this);
+        }
 
         return $this;
     }
