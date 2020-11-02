@@ -7,7 +7,10 @@ use App\Repository\FirmTypeRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ApiResource()
+ * @ApiResource(
+ *     collectionOperations={"get", "post"},
+ *     itemOperations={"get", "put"}
+ * )
  * @ORM\Entity(repositoryClass=FirmTypeRepository::class)
  */
 class FirmType
