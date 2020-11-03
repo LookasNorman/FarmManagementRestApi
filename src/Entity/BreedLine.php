@@ -7,7 +7,15 @@ use App\Repository\BreedLineRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ApiResource()
+ * @ApiResource(
+ *     collectionOperations={"get", "post"},
+ *     itemOperations={
+ *          "get",
+ *          "put"={
+ *              "access_control"="is_granted('ROLE_ADMIN')"
+ *          }
+ *      }
+ * )
  * @ORM\Entity(repositoryClass=BreedLineRepository::class)
  */
 class BreedLine
@@ -29,6 +37,12 @@ class BreedLine
      * @ORM\Column(type="string", length=255)
      */
     private $name;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class)
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $Owner;
 
     public function getId(): ?int
     {
@@ -55,6 +69,18 @@ class BreedLine
     public function setName(string $name): self
     {
         $this->name = $name;
+
+        return $this;
+    }
+
+    public function getOwner(): ?User
+    {
+        return $this->Owner;
+    }
+
+    public function setOwner(?User $Owner): self
+    {
+        $this->Owner = $Owner;
 
         return $this;
     }
