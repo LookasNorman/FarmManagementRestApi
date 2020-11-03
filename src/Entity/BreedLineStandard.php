@@ -95,6 +95,12 @@ class BreedLineStandard
      */
     private $eggWeight;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class)
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $Owner;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -276,6 +282,18 @@ class BreedLineStandard
     public function setEggWeight(string $eggWeight): self
     {
         $this->eggWeight = $eggWeight;
+
+        return $this;
+    }
+
+    public function getOwner(): ?User
+    {
+        return $this->Owner;
+    }
+
+    public function setOwner(?User $Owner): self
+    {
+        $this->Owner = $Owner;
 
         return $this;
     }

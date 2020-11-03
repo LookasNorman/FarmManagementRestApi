@@ -47,6 +47,12 @@ class Tank
      */
     private $IU;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class)
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $Owner;
+
     public function __construct()
     {
         $this->building = new ArrayCollection();
@@ -125,6 +131,18 @@ class Tank
     public function setIU(string $IU): self
     {
         $this->IU = $IU;
+
+        return $this;
+    }
+
+    public function getOwner(): ?User
+    {
+        return $this->Owner;
+    }
+
+    public function setOwner(?User $Owner): self
+    {
+        $this->Owner = $Owner;
 
         return $this;
     }

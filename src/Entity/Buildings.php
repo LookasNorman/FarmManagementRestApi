@@ -42,6 +42,12 @@ class Buildings
      */
     private $tanks;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class)
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $Owner;
+
     public function __construct()
     {
         $this->tanks = new ArrayCollection();
@@ -111,6 +117,18 @@ class Buildings
         if ($this->tanks->removeElement($tank)) {
             $tank->removeBuilding($this);
         }
+
+        return $this;
+    }
+
+    public function getOwner(): ?User
+    {
+        return $this->Owner;
+    }
+
+    public function setOwner(?User $Owner): self
+    {
+        $this->Owner = $Owner;
 
         return $this;
     }

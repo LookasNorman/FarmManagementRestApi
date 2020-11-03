@@ -104,6 +104,12 @@ class Herds
      */
     private $eggCode;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class)
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $Owner;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -297,6 +303,18 @@ class Herds
     public function setEggCode(?string $eggCode): self
     {
         $this->eggCode = $eggCode;
+
+        return $this;
+    }
+
+    public function getOwner(): ?User
+    {
+        return $this->Owner;
+    }
+
+    public function setOwner(?User $Owner): self
+    {
+        $this->Owner = $Owner;
 
         return $this;
     }

@@ -45,6 +45,12 @@ class Lights
      */
     private $intensity;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class)
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $Owner;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -106,6 +112,18 @@ class Lights
     public function setIntensity(string $intensity): self
     {
         $this->intensity = $intensity;
+
+        return $this;
+    }
+
+    public function getOwner(): ?User
+    {
+        return $this->Owner;
+    }
+
+    public function setOwner(?User $Owner): self
+    {
+        $this->Owner = $Owner;
 
         return $this;
     }

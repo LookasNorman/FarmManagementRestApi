@@ -85,6 +85,12 @@ class HerdsData
      */
     private $floorEggs;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class)
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $Owner;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -242,6 +248,18 @@ class HerdsData
     public function setFloorEggs(?int $floorEggs): self
     {
         $this->floorEggs = $floorEggs;
+
+        return $this;
+    }
+
+    public function getOwner(): ?User
+    {
+        return $this->Owner;
+    }
+
+    public function setOwner(?User $Owner): self
+    {
+        $this->Owner = $Owner;
 
         return $this;
     }
