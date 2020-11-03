@@ -12,7 +12,7 @@ use Doctrine\ORM\Mapping as ORM;
  *     itemOperations={
  *          "get",
  *          "put"={
- *              "access_control"="is_granted('ROLE_ADMIN')"
+ *              "access_control"="is_granted('ROLE_ADMIN')" or object.getOwner() == user
  *          }
  *      }
  * )
