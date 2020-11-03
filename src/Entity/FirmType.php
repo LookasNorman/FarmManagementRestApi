@@ -9,7 +9,12 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ApiResource(
  *     collectionOperations={"get", "post"},
- *     itemOperations={"get", "put"}
+ *     itemOperations={
+ *          "get",
+ *           "put"={
+ *              "access_control"="is_granted('ROLE_ADMIN') or object.getOwner() == user"
+ *          }
+ *      }
  * )
  * @ORM\Entity(repositoryClass=FirmTypeRepository::class)
  */
