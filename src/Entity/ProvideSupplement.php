@@ -41,6 +41,12 @@ class ProvideSupplement
      */
     private $quantity;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Person::class)
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $person;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -90,6 +96,18 @@ class ProvideSupplement
     public function setQuantity(int $quantity): self
     {
         $this->quantity = $quantity;
+
+        return $this;
+    }
+
+    public function getPerson(): ?Person
+    {
+        return $this->person;
+    }
+
+    public function setPerson(?Person $person): self
+    {
+        $this->person = $person;
 
         return $this;
     }
