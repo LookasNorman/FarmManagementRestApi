@@ -30,7 +30,8 @@ class HerdDisinfection
     private $id;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Herds::class)
+     * @ORM\ManyToOne(targetEntity=Herds::class)
+     * @ORM\JoinColumn(nullable=false)
      */
     private $herd;
 
@@ -40,12 +41,14 @@ class HerdDisinfection
     private $date;
 
     /**
-     * @ORM\ManyToMany(targetEntity=DisinfectionPlace::class)
+     * @ORM\ManyToOne(targetEntity=DisinfectionPlace::class)
+     * @ORM\JoinColumn(nullable=false)
      */
     private $disinfection;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Disinfectant::class)
+     * @ORM\ManyToOne(targetEntity=Disinfectant::class)
+     * @ORM\JoinColumn(nullable=false)
      */
     private $disinfectant;
 
@@ -60,40 +63,9 @@ class HerdDisinfection
      */
     private $Owner;
 
-    public function __construct()
-    {
-        $this->herd = new ArrayCollection();
-        $this->disinfection = new ArrayCollection();
-        $this->disinfectant = new ArrayCollection();
-    }
-
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    /**
-     * @return Collection|Herds[]
-     */
-    public function getHerd(): Collection
-    {
-        return $this->herd;
-    }
-
-    public function addHerd(Herds $herd): self
-    {
-        if (!$this->herd->contains($herd)) {
-            $this->herd[] = $herd;
-        }
-
-        return $this;
-    }
-
-    public function removeHerd(Herds $herd): self
-    {
-        $this->herd->removeElement($herd);
-
-        return $this;
     }
 
     public function getDate(): ?\DateTimeInterface
@@ -104,54 +76,6 @@ class HerdDisinfection
     public function setDate(\DateTimeInterface $date): self
     {
         $this->date = $date;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|DisinfectionPlace[]
-     */
-    public function getDisinfection(): Collection
-    {
-        return $this->disinfection;
-    }
-
-    public function addDisinfection(DisinfectionPlace $disinfection): self
-    {
-        if (!$this->disinfection->contains($disinfection)) {
-            $this->disinfection[] = $disinfection;
-        }
-
-        return $this;
-    }
-
-    public function removeDisinfection(DisinfectionPlace $disinfection): self
-    {
-        $this->disinfection->removeElement($disinfection);
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Disinfectant[]
-     */
-    public function getDisinfectant(): Collection
-    {
-        return $this->disinfectant;
-    }
-
-    public function addDisinfectant(Disinfectant $disinfectant): self
-    {
-        if (!$this->disinfectant->contains($disinfectant)) {
-            $this->disinfectant[] = $disinfectant;
-        }
-
-        return $this;
-    }
-
-    public function removeDisinfectant(Disinfectant $disinfectant): self
-    {
-        $this->disinfectant->removeElement($disinfectant);
 
         return $this;
     }
@@ -178,5 +102,53 @@ class HerdDisinfection
         $this->Owner = $Owner;
 
         return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getHerd()
+    {
+        return $this->herd;
+    }
+
+    /**
+     * @param mixed $herd
+     */
+    public function setHerd($herd): void
+    {
+        $this->herd = $herd;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDisinfection()
+    {
+        return $this->disinfection;
+    }
+
+    /**
+     * @param mixed $disinfection
+     */
+    public function setDisinfection($disinfection): void
+    {
+        $this->disinfection = $disinfection;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDisinfectant()
+    {
+        return $this->disinfectant;
+    }
+
+    /**
+     * @param mixed $disinfectant
+     */
+    public function setDisinfectant($disinfectant): void
+    {
+        $this->disinfectant = $disinfectant;
     }
 }

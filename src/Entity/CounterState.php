@@ -15,7 +15,7 @@ use Doctrine\ORM\Mapping as ORM;
  *              "access_control"="is_granted('ROLE_ADMIN') or object.getOwner() == user"
  *          },
  *          "DELETE"={
- *              "access_control"='is_granted('ROLE_ADMIN') or object.getOwner() == user"
+ *              "access_control"="is_granted('ROLE_ADMIN') or object.getOwner() == user"
  *          }
  *      }
  * )

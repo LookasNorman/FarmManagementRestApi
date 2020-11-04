@@ -30,7 +30,8 @@ class CleanBuilding
     private $id;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Buildings::class)
+     * @ORM\ManyToOne(targetEntity=Buildings::class)
+     * @ORM\JoinColumn(nullable=false)
      */
     private $building;
 
@@ -40,7 +41,8 @@ class CleanBuilding
     private $date;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Detergent::class)
+     * @ORM\ManyToOne(targetEntity=Detergent::class)
+     * @ORM\JoinColumn(nullable=false)
      */
     private $detergent;
 
@@ -50,7 +52,8 @@ class CleanBuilding
     private $quantity;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Person::class)
+     * @ORM\ManyToOne(targetEntity=Person::class)
+     * @ORM\JoinColumn(nullable=false)
      */
     private $person;
 
@@ -60,40 +63,9 @@ class CleanBuilding
      */
     private $Owner;
 
-    public function __construct()
-    {
-        $this->building = new ArrayCollection();
-        $this->detergent = new ArrayCollection();
-        $this->person = new ArrayCollection();
-    }
-
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    /**
-     * @return Collection|Buildings[]
-     */
-    public function getBuilding(): Collection
-    {
-        return $this->building;
-    }
-
-    public function addBuilding(Buildings $building): self
-    {
-        if (!$this->building->contains($building)) {
-            $this->building[] = $building;
-        }
-
-        return $this;
-    }
-
-    public function removeBuilding(Buildings $building): self
-    {
-        $this->building->removeElement($building);
-
-        return $this;
     }
 
     public function getDate(): ?\DateTimeInterface
@@ -104,30 +76,6 @@ class CleanBuilding
     public function setDate(\DateTimeInterface $date): self
     {
         $this->date = $date;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Detergent[]
-     */
-    public function getDetergent(): Collection
-    {
-        return $this->detergent;
-    }
-
-    public function addDetergent(Detergent $detergent): self
-    {
-        if (!$this->detergent->contains($detergent)) {
-            $this->detergent[] = $detergent;
-        }
-
-        return $this;
-    }
-
-    public function removeDetergent(Detergent $detergent): self
-    {
-        $this->detergent->removeElement($detergent);
 
         return $this;
     }
@@ -144,33 +92,57 @@ class CleanBuilding
         return $this;
     }
 
+    public function getOwner(): ?User
+    {
+        return $this->Owner;
+    }
+
     /**
-     * @return Collection|Person[]
+     * @return mixed
      */
-    public function getPerson(): Collection
+    public function getBuilding()
+    {
+        return $this->building;
+    }
+
+    /**
+     * @param mixed $building
+     */
+    public function setBuilding($building): void
+    {
+        $this->building = $building;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDetergent()
+    {
+        return $this->detergent;
+    }
+
+    /**
+     * @param mixed $detergent
+     */
+    public function setDetergent($detergent): void
+    {
+        $this->detergent = $detergent;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPerson()
     {
         return $this->person;
     }
 
-    public function addPerson(Person $person): self
+    /**
+     * @param mixed $person
+     */
+    public function setPerson($person): void
     {
-        if (!$this->person->contains($person)) {
-            $this->person[] = $person;
-        }
-
-        return $this;
-    }
-
-    public function removePerson(Person $person): self
-    {
-        $this->person->removeElement($person);
-
-        return $this;
-    }
-
-    public function getOwner(): ?User
-    {
-        return $this->Owner;
+        $this->person = $person;
     }
 
     public function setOwner(?User $Owner): self

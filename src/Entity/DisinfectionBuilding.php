@@ -4,8 +4,6 @@ namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\DisinfectionBuildingRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -30,7 +28,8 @@ class DisinfectionBuilding
     private $id;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Buildings::class)
+     * @ORM\ManyToOne(targetEntity=Buildings::class)
+     * @ORM\JoinColumn(nullable=false)
      */
     private $building;
 
@@ -40,7 +39,8 @@ class DisinfectionBuilding
     private $date;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Disinfectant::class)
+     * @ORM\ManyToOne(targetEntity=Disinfectant::class)
+     * @ORM\JoinColumn(nullable=false)
      */
     private $disinfectant;
 
@@ -50,7 +50,8 @@ class DisinfectionBuilding
     private $quantity;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Person::class)
+     * @ORM\ManyToOne(targetEntity=Person::class)
+     * @ORM\JoinColumn(nullable=false)
      */
     private $person;
 
@@ -60,40 +61,9 @@ class DisinfectionBuilding
      */
     private $Owner;
 
-    public function __construct()
-    {
-        $this->building = new ArrayCollection();
-        $this->disinfectant = new ArrayCollection();
-        $this->person = new ArrayCollection();
-    }
-
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    /**
-     * @return Collection|Buildings[]
-     */
-    public function getBuilding(): Collection
-    {
-        return $this->building;
-    }
-
-    public function addBuilding(Buildings $building): self
-    {
-        if (!$this->building->contains($building)) {
-            $this->building[] = $building;
-        }
-
-        return $this;
-    }
-
-    public function removeBuilding(Buildings $building): self
-    {
-        $this->building->removeElement($building);
-
-        return $this;
     }
 
     public function getDate(): ?\DateTimeInterface
@@ -104,30 +74,6 @@ class DisinfectionBuilding
     public function setDate(\DateTimeInterface $date): self
     {
         $this->date = $date;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Disinfectant[]
-     */
-    public function getDisinfectant(): Collection
-    {
-        return $this->disinfectant;
-    }
-
-    public function addDisinfectant(Disinfectant $disinfectant): self
-    {
-        if (!$this->disinfectant->contains($disinfectant)) {
-            $this->disinfectant[] = $disinfectant;
-        }
-
-        return $this;
-    }
-
-    public function removeDisinfectant(Disinfectant $disinfectant): self
-    {
-        $this->disinfectant->removeElement($disinfectant);
 
         return $this;
     }
@@ -144,28 +90,36 @@ class DisinfectionBuilding
         return $this;
     }
 
-    /**
-     * @return Collection|Person[]
-     */
-    public function getPerson(): Collection
+    public function getBuilding(): ?Buildings
+    {
+        return $this->building;
+    }
+
+    public function setBuilding(?Buildings $building): self
+    {
+        $this->building = $building;
+
+        return $this;
+    }
+
+    public function getDisinfectant()
+    {
+        return $this->disinfectant;
+    }
+
+    public function setDisinfectant($disinfectant): void
+    {
+        $this->disinfectant = $disinfectant;
+    }
+
+    public function getPerson()
     {
         return $this->person;
     }
 
-    public function addPerson(Person $person): self
+    public function setPerson($person): void
     {
-        if (!$this->person->contains($person)) {
-            $this->person[] = $person;
-        }
-
-        return $this;
-    }
-
-    public function removePerson(Person $person): self
-    {
-        $this->person->removeElement($person);
-
-        return $this;
+        $this->person = $person;
     }
 
     public function getOwner(): ?User

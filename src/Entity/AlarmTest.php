@@ -30,7 +30,8 @@ class AlarmTest
     private $id;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Buildings::class)
+     * @ORM\ManyToOne(targetEntity=Buildings::class)
+     * @ORM\JoinColumn(nullable=false)
      */
     private $building;
 
@@ -50,7 +51,8 @@ class AlarmTest
     private $remote;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Person::class)
+     * @ORM\ManyToOne(targetEntity=Person::class)
+     * @ORM\JoinColumn(nullable=false)
      */
     private $person;
 
@@ -65,39 +67,9 @@ class AlarmTest
      */
     private $Owner;
 
-    public function __construct()
-    {
-        $this->building = new ArrayCollection();
-        $this->person = new ArrayCollection();
-    }
-
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    /**
-     * @return Collection|Buildings[]
-     */
-    public function getBuilding(): Collection
-    {
-        return $this->building;
-    }
-
-    public function addBuilding(Buildings $building): self
-    {
-        if (!$this->building->contains($building)) {
-            $this->building[] = $building;
-        }
-
-        return $this;
-    }
-
-    public function removeBuilding(Buildings $building): self
-    {
-        $this->building->removeElement($building);
-
-        return $this;
     }
 
     public function getDate(): ?\DateTimeInterface
@@ -136,30 +108,6 @@ class AlarmTest
         return $this;
     }
 
-    /**
-     * @return Collection|Person[]
-     */
-    public function getPerson(): Collection
-    {
-        return $this->person;
-    }
-
-    public function addPerson(Person $person): self
-    {
-        if (!$this->person->contains($person)) {
-            $this->person[] = $person;
-        }
-
-        return $this;
-    }
-
-    public function removePerson(Person $person): self
-    {
-        $this->person->removeElement($person);
-
-        return $this;
-    }
-
     public function getComments(): ?string
     {
         return $this->comments;
@@ -182,5 +130,37 @@ class AlarmTest
         $this->Owner = $Owner;
 
         return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getBuilding()
+    {
+        return $this->building;
+    }
+
+    /**
+     * @param mixed $building
+     */
+    public function setBuilding($building): void
+    {
+        $this->building = $building;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPerson()
+    {
+        return $this->person;
+    }
+
+    /**
+     * @param mixed $person
+     */
+    public function setPerson($person): void
+    {
+        $this->person = $person;
     }
 }
