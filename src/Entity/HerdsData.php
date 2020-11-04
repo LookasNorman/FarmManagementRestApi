@@ -7,7 +7,18 @@ use App\Repository\HerdsDataRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ApiResource()
+ * @ApiResource(
+ *     collectionOperations={"get", "post"},
+ *     itemOperations={
+ *          "get",
+ *          "put"={
+ *              "access_control"="is_granted('ROLE_ADMIN') or object.getOwner() == user"
+ *          },
+ *          "delete"={
+ *              "access_contorl"="is_granted('ROLE_ADMIN')"
+ *          }
+ *      }
+ * )
  * @ORM\Entity(repositoryClass=HerdsDataRepository::class)
  */
 class HerdsData

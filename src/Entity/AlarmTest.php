@@ -9,7 +9,15 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ApiResource()
+ * @ApiResource(
+ *     collectionOperations={"get", "post"},
+ *     itemOperations={
+ *          "get",
+ *          "put"={
+ *              "access_control"="is_granted('ROLE_ADMIN') or object.getOwner() == user"
+ *          }
+ *      }
+ * )
  * @ORM\Entity(repositoryClass=AlarmTestRepository::class)
  */
 class AlarmTest
