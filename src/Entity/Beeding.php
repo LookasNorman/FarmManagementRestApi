@@ -3,22 +3,14 @@
 namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
-use App\Repository\ProvideSupplementRepository;
+use App\Repository\BeedingRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ApiResource(
- *     collectionOperations={"get", "post"},
- *     itemOperations={
- *          "get",
- *          "put"={
- *              "access_control"="is_granted('ROLE_ADMIN') or object.getOwner() == user"
- *          }
- *      }
- * )
- * @ORM\Entity(repositoryClass=ProvideSupplementRepository::class)
+ * @ApiResource()
+ * @ORM\Entity(repositoryClass=BeedingRepository::class)
  */
-class ProvideSupplement
+class Beeding
 {
     /**
      * @ORM\Id
@@ -28,16 +20,22 @@ class ProvideSupplement
     private $id;
 
     /**
+     * @ORM\ManyToOne(targetEntity=Paddings::class)
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $padding;
+
+    /**
      * @ORM\ManyToOne(targetEntity=Herds::class)
      * @ORM\JoinColumn(nullable=false)
      */
     private $herd;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Supplement::class)
+     * @ORM\ManyToOne(targetEntity=Person::class)
      * @ORM\JoinColumn(nullable=false)
      */
-    private $supplement;
+    private $person;
 
     /**
      * @ORM\Column(type="date")
@@ -50,20 +48,25 @@ class ProvideSupplement
     private $quantity;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Person::class)
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\Column(type="string", length=5)
      */
-    private $person;
-
-    /**
-     * @ORM\ManyToOne(targetEntity=User::class)
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $Owner;
+    private $IU;
 
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function getPadding(): ?Paddings
+    {
+        return $this->padding;
+    }
+
+    public function setPadding(?Paddings $padding): self
+    {
+        $this->padding = $padding;
+
+        return $this;
     }
 
     public function getHerd(): ?Herds
@@ -78,14 +81,14 @@ class ProvideSupplement
         return $this;
     }
 
-    public function getSupplement(): ?Supplement
+    public function getPerson(): ?Person
     {
-        return $this->supplement;
+        return $this->person;
     }
 
-    public function setSupplement(?Supplement $supplement): self
+    public function setPerson(?Person $person): self
     {
-        $this->supplement = $supplement;
+        $this->person = $person;
 
         return $this;
     }
@@ -114,26 +117,14 @@ class ProvideSupplement
         return $this;
     }
 
-    public function getPerson(): ?Person
+    public function getIU(): ?string
     {
-        return $this->person;
+        return $this->IU;
     }
 
-    public function setPerson(?Person $person): self
+    public function setIU(string $IU): self
     {
-        $this->person = $person;
-
-        return $this;
-    }
-
-    public function getOwner(): ?User
-    {
-        return $this->Owner;
-    }
-
-    public function setOwner(?User $Owner): self
-    {
-        $this->Owner = $Owner;
+        $this->IU = $IU;
 
         return $this;
     }
