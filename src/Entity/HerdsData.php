@@ -102,6 +102,126 @@ class HerdsData
      */
     private $Owner;
 
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $hensFalls;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $cocksFalls;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $hensMissing;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $cocksMissing;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $hensSexingMistake;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $hensTendons;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $cocksTendons;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $hensSpiking;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $cocksSpiking;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $hensWeight;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $cocksWeight;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $hensHandWeight;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $cocksHandWeight;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $eggsWeight;
+
+    /**
+     * @ORM\Column(type="decimal", precision=10, scale=2, nullable=true)
+     */
+    private $heaterWorkingTime;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $eggsExported;
+
+    /**
+     * @ORM\Column(type="decimal", precision=10, scale=2, nullable=true)
+     */
+    private $fertilization;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $hensExported;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $cocksExported;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $hatchingEggsQuantity;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $smallEggsQuantity;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $brokenEggsQuantity;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $twoYolksEggsQuantity;
+
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $export;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -271,6 +391,294 @@ class HerdsData
     public function setOwner(?User $Owner): self
     {
         $this->Owner = $Owner;
+
+        return $this;
+    }
+
+    public function getHensFalls(): ?int
+    {
+        return $this->hensFalls;
+    }
+
+    public function setHensFalls(?int $hensFalls): self
+    {
+        $this->hensFalls = $hensFalls;
+
+        return $this;
+    }
+
+    public function getCocksFalls(): ?int
+    {
+        return $this->cocksFalls;
+    }
+
+    public function setCocksFalls(?int $cocksFalls): self
+    {
+        $this->cocksFalls = $cocksFalls;
+
+        return $this;
+    }
+
+    public function getHensMissing(): ?int
+    {
+        return $this->hensMissing;
+    }
+
+    public function setHensMissing(?int $hensMissing): self
+    {
+        $this->hensMissing = $hensMissing;
+
+        return $this;
+    }
+
+    public function getCocksMissing(): ?int
+    {
+        return $this->cocksMissing;
+    }
+
+    public function setCocksMissing(?int $cocksMissing): self
+    {
+        $this->cocksMissing = $cocksMissing;
+
+        return $this;
+    }
+
+    public function getHensSexingMistake(): ?int
+    {
+        return $this->hensSexingMistake;
+    }
+
+    public function setHensSexingMistake(?int $hensSexingMistake): self
+    {
+        $this->hensSexingMistake = $hensSexingMistake;
+
+        return $this;
+    }
+
+    public function getHensTendons(): ?int
+    {
+        return $this->hensTendons;
+    }
+
+    public function setHensTendons(?int $hensTendons): self
+    {
+        $this->hensTendons = $hensTendons;
+
+        return $this;
+    }
+
+    public function getCocksTendons(): ?int
+    {
+        return $this->cocksTendons;
+    }
+
+    public function setCocksTendons(?int $cocksTendons): self
+    {
+        $this->cocksTendons = $cocksTendons;
+
+        return $this;
+    }
+
+    public function getHensSpiking(): ?int
+    {
+        return $this->hensSpiking;
+    }
+
+    public function setHensSpiking(?int $hensSpiking): self
+    {
+        $this->hensSpiking = $hensSpiking;
+
+        return $this;
+    }
+
+    public function getCocksSpiking(): ?int
+    {
+        return $this->cocksSpiking;
+    }
+
+    public function setCocksSpiking(?int $cocksSpiking): self
+    {
+        $this->cocksSpiking = $cocksSpiking;
+
+        return $this;
+    }
+
+    public function getHensWeight(): ?int
+    {
+        return $this->hensWeight;
+    }
+
+    public function setHensWeight(?int $hensWeight): self
+    {
+        $this->hensWeight = $hensWeight;
+
+        return $this;
+    }
+
+    public function getCocksWeight(): ?int
+    {
+        return $this->cocksWeight;
+    }
+
+    public function setCocksWeight(?int $cocksWeight): self
+    {
+        $this->cocksWeight = $cocksWeight;
+
+        return $this;
+    }
+
+    public function getHensHandWeight(): ?int
+    {
+        return $this->hensHandWeight;
+    }
+
+    public function setHensHandWeight(?int $hensHandWeight): self
+    {
+        $this->hensHandWeight = $hensHandWeight;
+
+        return $this;
+    }
+
+    public function getCocksHandWeight(): ?int
+    {
+        return $this->cocksHandWeight;
+    }
+
+    public function setCocksHandWeight(?int $cocksHandWeight): self
+    {
+        $this->cocksHandWeight = $cocksHandWeight;
+
+        return $this;
+    }
+
+    public function getEggsWeight(): ?int
+    {
+        return $this->eggsWeight;
+    }
+
+    public function setEggsWeight(?int $eggsWeight): self
+    {
+        $this->eggsWeight = $eggsWeight;
+
+        return $this;
+    }
+
+    public function getHeaterWorkingTime(): ?string
+    {
+        return $this->heaterWorkingTime;
+    }
+
+    public function setHeaterWorkingTime(?string $heaterWorkingTime): self
+    {
+        $this->heaterWorkingTime = $heaterWorkingTime;
+
+        return $this;
+    }
+
+    public function getEggsExported(): ?int
+    {
+        return $this->eggsExported;
+    }
+
+    public function setEggsExported(?int $eggsExported): self
+    {
+        $this->eggsExported = $eggsExported;
+
+        return $this;
+    }
+
+    public function getFertilization(): ?string
+    {
+        return $this->fertilization;
+    }
+
+    public function setFertilization(?string $fertilization): self
+    {
+        $this->fertilization = $fertilization;
+
+        return $this;
+    }
+
+    public function getHensExported(): ?int
+    {
+        return $this->hensExported;
+    }
+
+    public function setHensExported(?int $hensExported): self
+    {
+        $this->hensExported = $hensExported;
+
+        return $this;
+    }
+
+    public function getCocksExported(): ?int
+    {
+        return $this->cocksExported;
+    }
+
+    public function setCocksExported(?int $cocksExported): self
+    {
+        $this->cocksExported = $cocksExported;
+
+        return $this;
+    }
+
+    public function getHatchingEggsQuantity(): ?int
+    {
+        return $this->hatchingEggsQuantity;
+    }
+
+    public function setHatchingEggsQuantity(?int $hatchingEggsQuantity): self
+    {
+        $this->hatchingEggsQuantity = $hatchingEggsQuantity;
+
+        return $this;
+    }
+
+    public function getSmallEggsQuantity(): ?int
+    {
+        return $this->smallEggsQuantity;
+    }
+
+    public function setSmallEggsQuantity(?int $smallEggsQuantity): self
+    {
+        $this->smallEggsQuantity = $smallEggsQuantity;
+
+        return $this;
+    }
+
+    public function getBrokenEggsQuantity(): ?int
+    {
+        return $this->brokenEggsQuantity;
+    }
+
+    public function setBrokenEggsQuantity(?int $brokenEggsQuantity): self
+    {
+        $this->brokenEggsQuantity = $brokenEggsQuantity;
+
+        return $this;
+    }
+
+    public function getTwoYolksEggsQuantity(): ?int
+    {
+        return $this->twoYolksEggsQuantity;
+    }
+
+    public function setTwoYolksEggsQuantity(?int $twoYolksEggsQuantity): self
+    {
+        $this->twoYolksEggsQuantity = $twoYolksEggsQuantity;
+
+        return $this;
+    }
+
+    public function getExport(): ?bool
+    {
+        return $this->export;
+    }
+
+    public function setExport(?bool $export): self
+    {
+        $this->export = $export;
 
         return $this;
     }
