@@ -53,7 +53,7 @@ class HerdDisinfection
     private $disinfectant;
 
     /**
-     * @ORM\Column(type="float")
+     * @ORM\Column(nullable=false)
      */
     private $quantity;
 
