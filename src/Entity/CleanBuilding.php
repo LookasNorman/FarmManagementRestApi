@@ -47,7 +47,7 @@ class CleanBuilding
     private $detergent;
 
     /**
-     * @ORM\Column(type="float")
+     * @ORM\Column(nullable=false)
      */
     private $quantity;
 
