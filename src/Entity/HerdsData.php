@@ -168,7 +168,7 @@ class HerdsData
     private $cocksHandWeight;
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
+     * @ORM\Column(type="decimal", precision=10, scale=2, nullable=true)
      */
     private $eggsWeight;
 
@@ -221,6 +221,26 @@ class HerdsData
      * @ORM\Column(type="boolean", nullable=true)
      */
     private $export;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $misshapenEggs;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $smallEggsFallOf;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $brokenEggsFallOf;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $spiderEggs;
 
     public function getId(): ?int
     {
@@ -679,6 +699,54 @@ class HerdsData
     public function setExport(?bool $export): self
     {
         $this->export = $export;
+
+        return $this;
+    }
+
+    public function getMisshapenEggs(): ?int
+    {
+        return $this->misshapenEggs;
+    }
+
+    public function setMisshapenEggs(?int $misshapenEggs): self
+    {
+        $this->misshapenEggs = $misshapenEggs;
+
+        return $this;
+    }
+
+    public function getSmallEggsFallOf(): ?int
+    {
+        return $this->smallEggsFallOf;
+    }
+
+    public function setSmallEggsFallOf(?int $smallEggsFallOf): self
+    {
+        $this->smallEggsFallOf = $smallEggsFallOf;
+
+        return $this;
+    }
+
+    public function getBrokenEggsFallOf(): ?int
+    {
+        return $this->brokenEggsFallOf;
+    }
+
+    public function setBrokenEggsFallOf(?int $brokenEggsFallOf): self
+    {
+        $this->brokenEggsFallOf = $brokenEggsFallOf;
+
+        return $this;
+    }
+
+    public function getSpiderEggs(): ?int
+    {
+        return $this->spiderEggs;
+    }
+
+    public function setSpiderEggs(?int $spiderEggs): self
+    {
+        $this->spiderEggs = $spiderEggs;
 
         return $this;
     }
