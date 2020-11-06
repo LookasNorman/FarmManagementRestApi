@@ -86,7 +86,7 @@ class BreedLineStandard
     private $hatchingFertilizedEggs;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="decimal", precision=6, scale=2)
      */
     private $numberChicks;
 
