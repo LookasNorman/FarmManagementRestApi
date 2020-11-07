@@ -4,6 +4,9 @@ namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\ExistsFilter;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\DateFilter;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\OrderFilter;
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\HerdsRepository;
 use Doctrine\ORM\Mapping as ORM;
@@ -19,6 +22,29 @@ use Doctrine\ORM\Mapping as ORM;
  *      }
  * )
  * @ApiFilter(ExistsFilter::class, properties={"slaughterDate"})
+ * @ApiFilter(
+ *     SearchFilter::class,
+ *     properties={
+ *          "slaughterDate":"exact",
+ *          "hatchingDate":"exact"
+ *     }
+ * )
+ * @ApiFilter(
+ *     DateFilter::class,
+ *     properties={
+ *          "slaughterDate",
+ *          "hatchingDate",
+ *          "insertingDate"
+ *     }
+ * )
+ * @ApiFilter(
+ *      OrderFilter::class,
+ *      properties={
+ *          "hatchingDate",
+ *          "insertingDate",
+ *          "name"
+ *     }
+ * )
  * @ORM\Entity(repositoryClass=HerdsRepository::class)
  */
 class Herds
