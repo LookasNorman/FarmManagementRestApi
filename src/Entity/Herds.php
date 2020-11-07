@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiFilter;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\ExistsFilter;
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\HerdsRepository;
 use Doctrine\ORM\Mapping as ORM;
@@ -16,6 +18,7 @@ use Doctrine\ORM\Mapping as ORM;
  *          }
  *      }
  * )
+ * @ApiFilter(ExistsFilter::class, properties={"slaughterDate"})
  * @ORM\Entity(repositoryClass=HerdsRepository::class)
  */
 class Herds
