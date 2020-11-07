@@ -23,13 +23,6 @@ use Doctrine\ORM\Mapping as ORM;
  * )
  * @ApiFilter(ExistsFilter::class, properties={"slaughterDate"})
  * @ApiFilter(
- *     SearchFilter::class,
- *     properties={
- *          "slaughterDate":"exact",
- *          "hatchingDate":"exact"
- *     }
- * )
- * @ApiFilter(
  *     DateFilter::class,
  *     properties={
  *          "slaughterDate",
