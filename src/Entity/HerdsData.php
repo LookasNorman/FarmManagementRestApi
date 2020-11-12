@@ -2,13 +2,20 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\HerdsDataRepository;
 use Doctrine\ORM\Mapping as ORM;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\DateFilter;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ApiResource(
- *     collectionOperations={"get", "post"},
+ *     collectionOperations={
+ *          "get",
+ *           "post"
+ *     },
  *     itemOperations={
  *          "get",
  *          "put"={
@@ -19,6 +26,8 @@ use Doctrine\ORM\Mapping as ORM;
  *          }
  *      }
  * )
+ * @ApiFilter(SearchFilter::class, properties={"herd":"exact"})
+ * @ApiFilter(DateFilter::class, properties={"date"})
  * @ORM\Entity(repositoryClass=HerdsDataRepository::class)
  */
 class HerdsData

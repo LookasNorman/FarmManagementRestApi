@@ -4,7 +4,6 @@ namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\ExistsFilter;
-use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\DateFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\OrderFilter;
 use ApiPlatform\Core\Annotation\ApiResource;
@@ -13,12 +12,16 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ApiResource(
- *     collectionOperations={"get", "post"},
+ *     collectionOperations={
+ *          "get",
+ *           "post"
+ *     },
  *     itemOperations={
  *          "get",
  *          "put"={
  *              "access_control"="is_granted('ROLE_ADMIN') or object.getOwner() == user"
- *          }
+ *          },
+ *     "herds_get_quantity"
  *      }
  * )
  * @ApiFilter(ExistsFilter::class, properties={"slaughterDate"})

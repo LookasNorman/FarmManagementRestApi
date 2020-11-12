@@ -47,4 +47,34 @@ class HerdsDataRepository extends ServiceEntityRepository
         ;
     }
     */
+
+    public function herdsState($herd)
+    {
+        return $this->createQueryBuilder('hd')
+            ->select(
+                'h.name', 'h.hatchingDate', 'h.insertingDate',
+                'h.hens + SUM(hd.hensSpiking) as hensInserted',
+                'h.cocks + SUM(hd.cocksSpiking) as cocksInserted',
+                'MAX(hd.date) as herdsDate',
+                'h.hens - SUM(hd.hensFalls) - sum(hd.hensMissing) - SUM(hd.hensSexingMistake)
+                 - SUM(hd.hensTendons) + SUM(hd.hensSpiking) as hensState',
+                'h.cocks - SUM(hd.cocksFalls) - sum(hd.cocksMissing) - SUM(hd.cocksTendons)
+                 + SUM(hd.cocksSpiking) as cocksState',
+                'SUM(hd.hatchingEggs) - SUM(hd.eggsExported) as hatchingEggsState',
+                'b.area', 'hd.hensWeight', 'hd.cocksWeight',
+                'SUM(hd.hatchingEggs + hd.smallEggs + hd.brokenEggs + hd.twoYolkEggs + hd.weakEggs) as allEggs',
+                'SUM(hd.hatchingEggs) as hatchingEggs', 'SUM(hd.hensFalls) as hensFalls',
+                'SUM(hd.cocksFalls) as cocksFalls',
+                'SUM(hd.hensMissing + hd.hensSexingMistake + hd.hensTendons) as hensMissing',
+                'SUM(hd.cocksMissing + hd.cocksTendons) as cocksMissing',
+                'MAX(hd.fertilization) as maxFertilization',
+                'SUM(hd.fertilization * hd.eggsExported) / SUM(hd.eggsExported) as avgFertilization')
+            ->join('hd.herd', 'h')
+            ->join('h.building', 'b')
+            ->where('hd.herd = :herd')
+            ->setParameter('herd', $herd)
+            ->groupBy('hd.herd')
+            ->getQuery()
+            ->getSingleResult();
+    }
 }
