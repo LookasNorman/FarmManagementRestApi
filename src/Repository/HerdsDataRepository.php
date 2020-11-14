@@ -48,7 +48,87 @@ class HerdsDataRepository extends ServiceEntityRepository
     }
     */
 
-    public function herdsState($herd)
+    /**
+     * @param $herd
+     * Get Max(date) from herd data by herd
+     */
+    public function lastDateHerdData($herd)
+    {
+        return $this->createQueryBuilder('hd')
+            ->select('MAX(hd.date) as lastHerdDataDate')
+            ->where('hd.herd = :herd')
+            ->setParameter('herd', $herd)
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
+
+    public function lastDateHerdDataHensFeed($herd)
+    {
+        return $this->createQueryBuilder('hd')
+            ->select('MAX(hd.date) as lastHerdDataDate')
+            ->where('hd.herd = :herd')
+            ->andWhere('hd.hensFeed > 0')
+            ->setParameter('herd', $herd)
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
+
+    public function lastDateHerdDataCocksFeed($herd)
+    {
+        return $this->createQueryBuilder('hd')
+            ->select('MAX(hd.date) as lastHerdDataDate')
+            ->where('hd.herd = :herd')
+            ->andWhere('hd.cocksFeed > 0')
+            ->setParameter('herd', $herd)
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
+
+    public function lastDateHerdDataHensWeight($herd)
+    {
+        return $this->createQueryBuilder('hd')
+            ->select('MAX(hd.date) as lastHerdDataDate')
+            ->where('hd.herd = :herd')
+            ->andWhere('hd.hensWeight > 0')
+            ->setParameter('herd', $herd)
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
+
+    public function lastDateHerdDataCocksWeight($herd)
+    {
+        return $this->createQueryBuilder('hd')
+            ->select('MAX(hd.date) as lastHerdDataDate')
+            ->where('hd.herd = :herd')
+            ->andWhere('hd.cocksWeight > 0')
+            ->setParameter('herd', $herd)
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
+
+    public function lastDateHerdDataFertilization($herd)
+    {
+        return $this->createQueryBuilder('hd')
+            ->select('MAX(hd.date) as lastHerdDataDate')
+            ->where('hd.herd = :herd')
+            ->andWhere('hd.fertilization > 0')
+            ->setParameter('herd', $herd)
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
+
+    public function dateHerdData22Week($herd)
+    {
+        return $this->createQueryBuilder('hd')
+            ->select('hd.date')
+            ->where('hd.herd = :herd')
+            ->andWhere('hd.day = 154')
+            ->setParameter('herd', $herd)
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
+
+    public function herdsState($herd, $date)
     {
         return $this->createQueryBuilder('hd')
             ->select(
@@ -72,7 +152,8 @@ class HerdsDataRepository extends ServiceEntityRepository
             ->join('hd.herd', 'h')
             ->join('h.building', 'b')
             ->where('hd.herd = :herd')
-            ->setParameter('herd', $herd)
+            ->andWhere('hd.date <= :date')
+            ->setParameters(['herd' => $herd, 'date' => $date])
             ->groupBy('hd.herd')
             ->getQuery()
             ->getSingleResult();
