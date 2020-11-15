@@ -9,7 +9,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 class HerdsController extends AbstractController
 {
-    public function state(Herds $herd): Response
+    public function stateMainPage(Herds $herd): Response
     {
         $date = new \DateTime('now');
         $herdsDataRepository = $this->getDoctrine()->getRepository(HerdsData::class);
