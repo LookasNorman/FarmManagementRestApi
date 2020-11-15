@@ -15,17 +15,18 @@ class HerdsController extends AbstractController
         $herdsDataRepository = $this->getDoctrine()->getRepository(HerdsData::class);
         $data = $herdsDataRepository->herdsState($herd, $date);
 
-        /*Get last date*/
+//        Get last date
         $lastDate = new \DateTime($herdsDataRepository->lastDateHerdData($herd));
 
+//        Get data from HerdData entity for date and herd
         $herdData = $herdsDataRepository->findOneBy(['date' => $lastDate, 'herd' => $herd]);
-
         $hensFeed = $herdData->getHensFeed();
         $cocksFeed = $herdData->getCocksFeed();
         $hensWeight = $herdData->getHensWeight();
         $cocksWeight = $herdData->getCocksWeight();
         $fertilization = $herdData->getFertilization();
-        
+
+//        Check if data not exist is 0 get last date and new data
         if ($hensFeed === 0) {
             $lastDate = new \DateTime($herdsDataRepository->lastDateHerdDataHensFeed($herd));
             $hensFeed = $herdsDataRepository
@@ -54,16 +55,18 @@ class HerdsController extends AbstractController
                 ->getCocksWeight();
         }
 
-        if($fertilization === 0) {
+        if ($fertilization === 0) {
             $lastDate = new \DateTime($herdsDataRepository->lastDateHerdDataFertilization($herd));
             $fertilization = $herdsDataRepository
                 ->findOneBy(['date' => $lastDate, 'herd' => $herd])
                 ->getCocksWeight();
         }
 
+//        Get state for 22 week (154 day)
         $date22Week = $herdsDataRepository->dateHerdData22Week($herd);
         $state22Week = $herdsDataRepository->herdsState($herd, $date22Week);
 
+//        Generated array for new adding data
         $addingData = [
             'lastDate' => $lastDate,
             'cast' => ($hensWeight / 1000 * $data['hensState'] +
@@ -82,5 +85,4 @@ class HerdsController extends AbstractController
 
         return $response;
     }
-
 }
