@@ -47,4 +47,16 @@ class HerdsRepository extends ServiceEntityRepository
         ;
     }
     */
+
+    public function herdHatchingDateInProductionOnDate($date)
+    {
+        return $this->createQueryBuilder('h')
+            ->select('h.hatchingDate')
+            ->where('h.insertingDate <= :date')
+            ->andWhere('h.slaughterDate >= :date OR h.slaughterDate IS NULL')
+            ->setParameter('date', $date)
+            ->groupBy('h.hatchingDate')
+            ->getQuery()
+            ->getResult();
+    }
 }

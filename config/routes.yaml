@@ -8,3 +8,11 @@ herds_get_quantity:
     _controller: App\Controller\HerdsController::stateMainPage
     _api_resource_class: App\Entity\Herds
     _api_item_operation_name: herds_get_quantity
+
+herds_in_production:
+  path: api/herds/{date}/production
+  methods: 'GET'
+  defaults:
+    _controller: App\Controller\ProductionDailyReportController::farmSummary
+    _api_resource_class: App\Entity\Herds
+    _api_collection_operation_name: herds_in_production

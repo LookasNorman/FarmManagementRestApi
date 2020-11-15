@@ -14,7 +14,8 @@ use Doctrine\ORM\Mapping as ORM;
  * @ApiResource(
  *     collectionOperations={
  *          "get",
- *           "post"
+ *          "post",
+ *          "herds_in_production"
  *     },
  *     itemOperations={
  *          "get",
