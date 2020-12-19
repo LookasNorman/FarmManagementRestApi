@@ -1,0 +1,101 @@
+# To jest przyk³adowy plik .htaccess. Znajdziesz tutaj przyk³ady
+# modyfikacji ustawieñ niektórych parametrów. Jeœli chcesz wprowadziæ, 
+# któr¹œ ze zmian utwórz plik .htaccess i umieœæ w nim w³aœciwy akapit.
+# Plik ten umieœæ w katalogu, którego zmiana ma dotyczyæ (bêdzie dotyczyæ 
+# równie¿ jego podkatalogów).
+# Jeœli chcesz wykorzystaæ ten plik, jego nazwê mo¿esz zmieniæ 
+# np. w Total Commander.
+
+
+#              Przyk³ady:
+# Przekierowanie domeny na adres z www.
+# mod_rewrite dla plików .cgi 
+# Wymuszenie wersji PHP (np.php4)
+# Wy³¹czenie register_globals
+# Wy³¹czenie kompresjê wyjœcia
+# Wy³¹czenie short_open_tag
+# Wymuszenie SSL czyli przekierowanie na https
+# Wywo³anie poszczególnych funkcji Allow Call Time Pass
+# Ustawienie limitu np. 8MB na request apache
+# Wylistowanie plików w danym katalogu/podkatalogu
+# Wylistowanie plików z ukryciem pewnych ich grup (np. obrazków gif i jpg)
+# Ustawienie strony startowej w "niestandardowym" pliku
+# Blokowanie dostêpu do www z poszczególnych adresów IP:
+# Blokowanie dostêpu do katalogu, tak by nikt nie móg³ nic œci¹gn¹æ
+# Zmiana strony b³êdu, np. 404, œcie¿ka liczy siê od katalogu root dla
+# domeny
+
+
+# Przekierowanie domeny na adres z www.
+RewriteEngine On
+RewriteCond %{HTTP_HOST} ^domena.pl
+RewriteRule ^(.*)$ http://www.domena.pl/$1 [R=permanent,L]
+
+
+# mod_rewrite dla plików .cgi 
+<Files ~ (\.cgi)>
+Options ExecCGI FollowSymLinks
+</Files>
+
+
+# Wymuszenie wersji PHP (np.php4)
+AddHandler application/x-httpd-php4 .php
+
+
+# Wy³¹czenie register_globals
+php_value register_globals Off
+
+
+# Wy³¹czenie kompresjê wyjœcia
+php_value zlib.output_compression Off
+
+
+# Wy³¹czenie short_open_tag
+php_value short_open_tag Off
+
+
+# Wymuszenie SSL czyli przekierowanie na https
+RewriteEngine On
+RewriteCond %{HTTPS} off
+RewriteRule (.*) https://%{HTTP_HOST}%{REQUEST_URI}
+# Jeœli to nie pomo¿e mo¿e zajœæ potrzeba dopisania na pocz¹tku pliku 
+# .htaccess nastêpuj¹cego wpisu:
+Options +FollowSymLinks
+RewriteEngine On
+RewriteBase /
+
+
+# Wywo³anie poszczególnych funkcji Allow Call Time Pass
+php_value allow_call_time_pass_reference 0
+
+
+# Ustawienie limitu np. 8MB na request apache
+LimitRequestBody 8388608
+
+
+# Wylistowanie plików w danym katalogu/podkatalogu
+Options +Indexes +FollowSymlinks
+
+
+# Wylistowanie plików z ukryciem pewnych ich grup (np. obrazków gif i jpg)
+Options +Indexes +FollowSymlinks
+IndexIgnore *.gif *.jpg
+
+
+# Ustawienie strony startowej w "niestandardowym" pliku
+DirectoryIndex niestandardowy.html index.html index.php
+
+
+# Blokowanie dostêpu do www z poszczególnych adresów IP:
+Order allow,deny
+Deny from 127.0.0.1
+
+
+# Blokowanie dostêpu do katalogu, tak by nikt nie móg³ nic œci¹gn¹æ
+Order allow,deny
+Deny from all
+
+
+# Zmiana strony b³êdu, np. 404, œcie¿ka liczy siê od katalogu root dla
+# domeny
+ErrorDocument 404 /errordocs/404.shtml
