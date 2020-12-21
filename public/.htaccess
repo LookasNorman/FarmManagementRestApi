@@ -1,2 +1,0 @@
-SetEnv APP_ENV prod
-SetEnv DATABASE_URL 'mysql://admin23223_ferma:'ZWDM@l3c!23@23223.m.tld.pl/baza23223_ferma'
